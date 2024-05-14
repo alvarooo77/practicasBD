@@ -14,26 +14,48 @@ public class CreateTableBank {
          "password VARCHAR(20) NOT NULL, " +
          "balance Integer NOT NULL, " +
          "PRIMARY KEY(client))";
-   Connection connection = null;
-   Statement statement = null;
+   Connection connection;
+   Statement statement;
 
-   public void CreateTableBank() throws SQLException {
-
-      statement = connection.createStatement();
-      statement.executeUpdate(createTableBank);
-
+   public void CreateTableBank() {
    }
 
-   public void initialize() throws ClassNotFoundException, SQLException {
-      Class.forName(driver);
-      connection = DriverManager.getConnection(url, login, password);
+   public void initConnection() {
+      try {
+         Class.forName(driver);
+      } catch (ClassNotFoundException e) {
+         System.out.println(e.getMessage());
+      }
+      try {
+         connection = DriverManager.getConnection(url, login, password);
+
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
    }
 
-   public void close() throws SQLException {
+   public void createStatement(){
+      try {
+         statement = connection.createStatement();
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
+   }
+
+   public void useStatement(){
+      try {
+         statement.executeUpdate(createTableBank);
+      } catch (SQLException e) {
+         System.out.println("al crear la tabla");
+         System.out.println(e.getMessage());
+      }
+   }
+
+   public void closeConnection() {
       try {
          connection.close();
       } catch (SQLException e) {
-         throw e;
+         System.out.println(e.getMessage());
       }
    }
 
