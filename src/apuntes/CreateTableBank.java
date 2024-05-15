@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class CreateTableBank {
    // Attributes
-   String driver = "com.mysql.jdbc.Driver";
+   String driver = "com.mysql.cj.jdbc.Driver";
    String url = "jdbc:mysql://localhost:3306/bank";
    String login = "root";
    String password = "";
