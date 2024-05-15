@@ -7,7 +7,7 @@ public class App {
         CreateTableBank miTabla = new CreateTableBank();
         miTabla.initConnection();
         miTabla.createStatement();
-        miTabla.useStatement();
+        miTabla.useSelect();
 
         miTabla.closeConnection();
 

@@ -1,6 +1,8 @@
 package apuntes;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,6 +19,12 @@ public class CreateTableBank {
          "PRIMARY KEY(client))";
    Connection connection;
    Statement statement;
+
+   String createInsertInto = "INSERT INTO BANCO "+
+      "(client,password,balance) VALUES" +
+      "('Jose','C',10)";
+
+   String createSelect = "select * from banco";
 
    public void CreateTableBank() {
    }
@@ -48,6 +56,36 @@ public class CreateTableBank {
          statement.executeUpdate(createTableBank);
       } catch (SQLException e) {
          System.out.println("al crear la tabla");
+         System.out.println(e.getMessage());
+      }
+   }
+
+   public void useStatementInsert(){
+      try {
+         statement.executeUpdate(createInsertInto);
+      } catch (SQLException e) {
+         System.out.println("al crear la tabla");
+         System.out.println(e.getMessage());
+      }
+   }
+
+   public void useSelect(){
+      try {
+         ResultSet vista = statement.executeQuery(createSelect);
+         ResultSetMetaData datosVista = vista.getMetaData();
+         System.out.println("el nombre de la tabla es: "+ datosVista.getTableName(1));
+         System.out.println("el numero de filas");
+         while (vista.next()){
+            
+            for (int i = 1; i <= datosVista.getColumnCount(); i++) {
+               System.out.print("["+ datosVista.getColumnName(i)+" : "+ vista.getString(i)+ "] ");
+               
+            }
+            System.out.println();
+         }
+         
+
+      } catch (SQLException e) {
          System.out.println(e.getMessage());
       }
    }
